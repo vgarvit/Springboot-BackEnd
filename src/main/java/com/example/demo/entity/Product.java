@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -54,7 +55,7 @@ public class Product {
 	private String mfg;
 	
 	@Column(name = "PRODUCT_EXP")
-	private String exp;
+	private LocalDate exp;
 
 	
 }

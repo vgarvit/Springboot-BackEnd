@@ -1,6 +1,8 @@
 package com.example.demo.service;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -35,24 +37,28 @@ public class ProductServiceImple implements ProductService{
 				    existp.setType(obj.getString("type"));
 				    existp.setPrice(obj.getInt("price"));
 				    existp.setMfg(obj.getString("mfg"));
-				    SimpleDateFormat mfg = new SimpleDateFormat(existp.getMfg());
-				    mfg.format(new Date());
-				    existp.setExp(obj.getString("exp"));
-				    SimpleDateFormat exp = new SimpleDateFormat(existp.getExp());
-				    exp.format(new Date());
+				    Date mfg = new SimpleDateFormat("dd/MM/yyyy").parse(existp.getMfg());
+				    Calendar c = Calendar.getInstance();
+				    c.setTime(mfg);
+				    c.add(Calendar.YEAR, 2);
+				    Date exp = c.getTime();
+				    LocalDate date = exp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+				    existp.setExp(date);
 			        productrepository.save(existp);
 			}else {
-				Product pro = new Product();
+				Product pro = new Product(); 
 				pro.setName(obj.getString("name"));
 				pro.setQuantity(obj.getInt("quantity"));
 				pro.setType(obj.getString("type"));
 				pro.setPrice(obj.getInt("price"));
 				pro.setMfg(obj.getString("mfg"));
-				SimpleDateFormat mfg = new SimpleDateFormat(pro.getMfg());
-			    mfg.format(new Date());
-			    pro.setExp(obj.getString("exp"));
-			    SimpleDateFormat exp = new SimpleDateFormat(pro.getExp());
-			    exp.format(new Date());
+				Date mfg = new SimpleDateFormat("dd/MM/yyyy").parse(pro.getMfg());
+				Calendar c = Calendar.getInstance();
+			    c.setTime(mfg);
+			    c.add(Calendar.YEAR, 2);
+			    Date exp = c.getTime();
+			    LocalDate date = exp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			    pro.setExp(date);
 		        productrepository.save(pro);
 				}
 		} catch (Exception e) {
