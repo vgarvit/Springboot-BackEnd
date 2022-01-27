@@ -29,12 +29,13 @@ public class OrderServiceImple implements OrderService{
 	@Override
 	public Order addOrder(Order order) {
 		Product product = productRepository.findById(order.getProduct().getId()).orElseThrow(null);
-		   Objects.requireNonNull(product, "You cannot order a non existing product");
-       
-		order.setTotal(order.getProduct().getPrice()*order.getQuantity());
+	    Objects.requireNonNull(product, "You cannot order a non existing product");
+		
+	    order.setTotal(order.getProduct().getPrice()*order.getQuantity());
 		order.setProduct(product);
 		product.setQuantity(product.getQuantity() - order.getQuantity());
 		order = orderRepository.save(order);
+		
 		productRepository.save(product);
 		
 		return orderRepository.save(order);

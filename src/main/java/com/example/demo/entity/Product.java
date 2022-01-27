@@ -51,10 +51,10 @@ public class Product {
 	
 	@Column(name = "PRODUCT_MFG")
 	@NotNull(message = "product mfg_date should not be null")
-	private LocalDate mfg;
+	private String mfg;
 	
 	@Column(name = "PRODUCT_EXP")
-	private LocalDate exp;
+	private String exp;
 
 	
 }
