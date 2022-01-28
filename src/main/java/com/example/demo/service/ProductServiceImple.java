@@ -33,11 +33,12 @@ public class ProductServiceImple implements ProductService{
 			Product existp = productrepository.findByName(obj.getString("name"));
 			
 			if(existp!=null){
-				    existp.setQuantity(obj.getInt("quantity"));
+				    Integer quantity = existp.getQuantity() + obj.getInt("quantity");
+				    existp.setQuantity(quantity);
 				    existp.setType(obj.getString("type"));
 				    existp.setPrice(obj.getInt("price"));
 				    existp.setMfg(obj.getString("mfg"));
-				    Date mfg = new SimpleDateFormat("dd/MM/yyyy").parse(existp.getMfg());
+				    Date mfg = new SimpleDateFormat("dd-MM-yyyy").parse(existp.getMfg());
 				    Calendar c = Calendar.getInstance();
 				    c.setTime(mfg);
 				    c.add(Calendar.YEAR, 2);
@@ -52,7 +53,7 @@ public class ProductServiceImple implements ProductService{
 				pro.setType(obj.getString("type"));
 				pro.setPrice(obj.getInt("price"));
 				pro.setMfg(obj.getString("mfg"));
-				Date mfg = new SimpleDateFormat("dd/MM/yyyy").parse(pro.getMfg());
+				Date mfg = new SimpleDateFormat("dd-MM-yyyy").parse(pro.getMfg());
 				Calendar c = Calendar.getInstance();
 			    c.setTime(mfg);
 			    c.add(Calendar.YEAR, 2);

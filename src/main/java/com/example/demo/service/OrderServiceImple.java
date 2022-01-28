@@ -27,7 +27,7 @@ public class OrderServiceImple implements OrderService{
 	}
 	
 	@Override
-	public Order addOrder(Order order) {
+	public Order addTotal(Order order) {
 		Product product = productRepository.findById(order.getProduct().getId()).orElseThrow(null);
 	    Objects.requireNonNull(product, "You cannot order a non existing product");
 	
@@ -40,6 +40,8 @@ public class OrderServiceImple implements OrderService{
 		
 		return orderRepository.save(order);
 	} 
+	
+	
 	
 	@Override
 	public Order getById(Integer id) {
