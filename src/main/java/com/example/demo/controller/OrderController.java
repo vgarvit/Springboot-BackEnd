@@ -42,11 +42,11 @@ public class OrderController {
 	}  
 	  
 	
-	@PostMapping("/addOrder")
-  public Order addOrder(@Valid @RequestBody Order order) {
-	 Order orderResponse = orderservice.addOrder(order);
-	   return orderResponse;
-  }
+//	@PostMapping("/addOrder")
+//  public Order addOrder(@Valid @RequestBody Order order) {
+//	 Order orderResponse = orderservice.addOrder(order);
+//	   return orderResponse;
+//  }
 	
 	
 	@DeleteMapping("/delete/{id}")  
@@ -57,13 +57,13 @@ public class OrderController {
 	
 	
 	
-	@PutMapping("/update/{id}")
-    public ResponseEntity<Order> update(@PathVariable("id") int id, @RequestBody Order order) {
-      orderservice.update(id, order);
-      
-      return new ResponseEntity<>(orderservice.getById(id), HttpStatus.OK);
-  }
-	
+//	@PutMapping("/update/{id}")
+//    public ResponseEntity<Order> update(@PathVariable("id") int id, @RequestBody Order order) {
+//      orderservice.update(id, order);
+//      
+//      return new ResponseEntity<>(orderservice.getById(id), HttpStatus.OK);
+//  }
+//	
 
 
 }

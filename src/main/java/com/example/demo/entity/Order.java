@@ -39,9 +39,9 @@ public class Order {
 	@NotNull(message = "product name cannot be empty")
 	private int price;
 	
-//	@Column(name = "PAYMENT_MODE")
-//	@NotEmpty(message = "mode of payment cannot be empty")
-//	private String paymentmode;
+	@Column(name = "PAYMENT_MODE")
+	@NotEmpty(message = "mode of payment cannot be empty")
+	private String paymentmode;
 	
 	@Column(name = "TOTAL_PRICE")
 	private int total;

@@ -5,11 +5,9 @@ import com.example.demo.entity.Product;
 
 public interface ProductService {
 	
-	public void addProduct( String product);
+	public void addProduct( String products);
 	public List<Product> getAllProducts();
 	public Product getById(Integer id);
 	public Product getByName(String name);
 	public void delete(Integer id);
-//	public void update(int id, Product product);
-
 }

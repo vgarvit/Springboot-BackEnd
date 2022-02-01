@@ -3,8 +3,12 @@ import java.util.List;
 import java.util.Objects;
 
 import javax.transaction.Transactional;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.demo.DTO.OrderDTO;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.Product;
 import com.example.demo.repository.OrderRepository;
@@ -27,9 +31,9 @@ public class OrderServiceImple implements OrderService{
 	}
 	
 	@Override
-	public Order addTotal(Order order) {
+	public Order addOrderTotal(Order order) {
 		Product product = productRepository.findById(order.getProduct().getId()).orElseThrow(null);
-	    Objects.requireNonNull(product, "You cannot order a non existing product");
+//	    Objects.requireNonNull(product, "You cannot order a non existing product");
 	
 	    order.setTotal(order.getProduct().getPrice()*order.getQuantity());
 		order.setProduct(product);
@@ -41,7 +45,25 @@ public class OrderServiceImple implements OrderService{
 		return orderRepository.save(order);
 	} 
 	
-	
+	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO){
+		try {
+			JSONObject obj = new JSONObject(product);
+			Product pro = productRepository.findByName(obj.getString("name"));
+			
+			if(pro!=null) {
+				orderDTO.setName(obj.getString("name"));
+				orderDTO.setQuantity(obj.getInt("quantity"));
+				//orderDTO.setTotal(orderDTO.getProduct().getPrice()*orderDTO.getQuantity());
+			}else {
+				System.out.println("product does not exist");
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		
+		return orderDTO;
+		
+	}
 	
 	@Override
 	public Order getById(Integer id) {
@@ -53,20 +75,6 @@ public class OrderServiceImple implements OrderService{
 		orderRepository.deleteById(id);
 	}
 	
-	@Override
-	public void update(int id, Order order) {
-		try {
-			Order orders = orderRepository.findById(id).get();
-	        System.out.println(order.toString());
-	        orders.setName(order.getName());
-	        orders.setQuantity(order.getQuantity());
-	        orders.setPrice(order.getPrice());
-	        orders.setTotal(order.getTotal());
-	        orderRepository.save(orders);
-	    } catch (Exception e) {
-			System.out.println(e);
-		}
         
-    }
 
 }

@@ -26,26 +26,26 @@ public class ProductServiceImple implements ProductService{
 	}
 	
 	@Override
-	public void addProduct(String product) {
+	public void addProduct(String products) {
 		try {
-			JSONObject obj = new JSONObject(product);
+			JSONObject obj = new JSONObject(products);
 			
-			Product existp = productrepository.findByName(obj.getString("name"));
+			Product product = productrepository.findByName(obj.getString("name"));
 			
-			if(existp!=null){
-				    Integer quantity = existp.getQuantity() + obj.getInt("quantity");
-				    existp.setQuantity(quantity);
-				    existp.setType(obj.getString("type"));
-				    existp.setPrice(obj.getInt("price"));
-				    existp.setMfg(obj.getString("mfg"));
-				    Date mfg = new SimpleDateFormat("dd-MM-yyyy").parse(existp.getMfg());
+			if(product!=null){
+				    Integer quantity = product.getQuantity() + obj.getInt("quantity");
+				    product.setQuantity(quantity);
+				    product.setType(obj.getString("type"));
+				    product.setPrice(obj.getInt("price"));
+				    product.setMfg(obj.getString("mfg"));
+				    Date mfg = new SimpleDateFormat("dd-MM-yyyy").parse(product.getMfg());
 				    Calendar c = Calendar.getInstance();
 				    c.setTime(mfg);
 				    c.add(Calendar.YEAR, 2);
 				    Date exp = c.getTime();
 				    LocalDate date = exp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				    existp.setExp(date);
-			        productrepository.save(existp);
+				    product.setExp(date);
+			        productrepository.save(product);
 			}else {
 				Product pro = new Product(); 
 				pro.setName(obj.getString("name"));
