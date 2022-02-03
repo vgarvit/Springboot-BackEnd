@@ -7,6 +7,7 @@ import com.example.demo.entity.Admin;
 
 @Repository
 public interface AdminRepository extends CrudRepository<Admin, String>{
+	
 	public Admin findUserByUsername(String username);
 
 }

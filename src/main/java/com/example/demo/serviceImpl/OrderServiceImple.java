@@ -1,6 +1,6 @@
-package com.example.demo.service;
+package com.example.demo.serviceImpl;
+
 import java.util.List;
-import java.util.Objects;
 
 import javax.transaction.Transactional;
 
@@ -13,68 +13,69 @@ import com.example.demo.entity.Order;
 import com.example.demo.entity.Product;
 import com.example.demo.repository.OrderRepository;
 import com.example.demo.repository.ProductRepository;
-
+import com.example.demo.service.IOrderService;
 
 @Service
 @Transactional
-public class OrderServiceImple implements OrderService{
-	
+public class OrderServiceImple implements IOrderService {
+
 	@Autowired
 	private OrderRepository orderRepository;
-	
+
 	@Autowired
 	private ProductRepository productRepository;
-	
+
 	@Override
-	public List<Order> getAllOrders(){
+	public List<Order> getAllOrders() {
 		return (List<Order>) orderRepository.findAll();
 	}
-	
+
 	@Override
 	public Order addOrderTotal(Order order) {
 		Product product = productRepository.findById(order.getProduct().getId()).orElseThrow(null);
 //	    Objects.requireNonNull(product, "You cannot order a non existing product");
-	
-	    order.setTotal(order.getProduct().getPrice()*order.getQuantity());
+
+		order.setTotal(order.getProduct().getPrice() * order.getQuantity());
 		order.setProduct(product);
 		product.setQuantity(product.getQuantity() - order.getQuantity());
 		order = orderRepository.save(order);
-		
+
 		productRepository.save(product);
-		
+
 		return orderRepository.save(order);
-	} 
-	
-	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO){
+	}
+
+	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO) {
 		try {
 			JSONObject obj = new JSONObject(product);
 			Product pro = productRepository.findByName(obj.getString("name"));
-			
-			if(pro!=null) {
+
+			if (pro != null) {
+				if (pro.getQuantity() < orderDTO.getQuantity()) {
+					throw new Exception("Quantity is more than available quantity");
+				}
 				orderDTO.setName(obj.getString("name"));
 				orderDTO.setQuantity(obj.getInt("quantity"));
-				//orderDTO.setTotal(orderDTO.getProduct().getPrice()*orderDTO.getQuantity());
-			}else {
+				orderDTO.setTotal(pro.getPrice() * orderDTO.getQuantity());
+			} else {
 				System.out.println("product does not exist");
 			}
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		
+
 		return orderDTO;
-		
+
 	}
-	
+
 	@Override
 	public Order getById(Integer id) {
-    	return orderRepository.findById(id).orElseThrow(RuntimeException::new);
-    }
-	
+		return orderRepository.findById(id).orElseThrow(RuntimeException::new);
+	}
+
 	@Override
 	public void delete(Integer id) {
 		orderRepository.deleteById(id);
 	}
-	
-        
 
 }

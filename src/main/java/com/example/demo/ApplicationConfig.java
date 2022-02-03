@@ -12,8 +12,9 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
 	   protected void configure(HttpSecurity http) throws Exception { 
 	      http 
 	      .csrf().disable()
-	      .authorizeRequests().antMatchers("/createAdmin")
-	      .permitAll() .anyRequest().authenticated() 
+	      .authorizeRequests().antMatchers("/createAdmin","/getAllProducts","/addProduct"
+	      ,"/deleteProduct/{id}","/addProductInOrder","/addOrderTotal","/getAllOrders","/deleteProduct/{id}")
+	      .permitAll() .anyRequest().authenticated()
 	      .and()
 	      .formLogin() .loginPage("/login")
 	      .permitAll() 
