@@ -90,8 +90,15 @@ public class ProductServiceImple implements IProductService {
 	}
 
 	@Override
-	public void delete(Integer id) {
-		productrepository.deleteById(id);
+	public void delete(String product) {
+		try {
+			JSONObject obj = new JSONObject(product);
+			Product pro = productrepository.findByName(obj.getString("name"));
+			productrepository.delete(pro);
+
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 }

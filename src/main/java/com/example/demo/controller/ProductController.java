@@ -15,7 +15,7 @@ import com.example.demo.service.IProductService;
 
 @CrossOrigin("*")
 @RestController
-//@RequestMapping("/product")
+@RequestMapping("/product")
 public class ProductController {
 
 	@Autowired
@@ -41,17 +41,10 @@ public class ProductController {
 		productservice.addProduct(product);
 	}
 
-	@DeleteMapping("/deleteProduct/{id}")
-	public void delete(@PathVariable("id") int id) {
-		System.out.println("deleted");
-		productservice.delete(id);
+	@DeleteMapping("/deleteProduct")
+	public void delete(@RequestBody String product) {
+		productservice.delete(product);
 	}
 
-//	@PutMapping("/update/{id}")
-//  public ResponseEntity<Product> update(@PathVariable("id") int id, @RequestBody Product product) {
-//      productservice.update(id, product);
-//      
-//      return new ResponseEntity<>(productservice.getById(id), HttpStatus.OK);
-//  }
 
 }

@@ -11,7 +11,7 @@ public interface IOrderService {
 
 	public Order getById(Integer id);
 
-	public void delete(Integer id);
+	public void delete(OrderDTO orderDTO);
 
 	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO);
 

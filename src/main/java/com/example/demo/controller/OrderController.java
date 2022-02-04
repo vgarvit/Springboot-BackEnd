@@ -20,7 +20,7 @@ import com.example.demo.service.IOrderService;
 
 @CrossOrigin("*")
 @RestController
-//@RequestMapping("/order")
+@RequestMapping("/order")
 public class OrderController {
 
 	@Autowired
@@ -37,7 +37,7 @@ public class OrderController {
 	}
 
 	@PostMapping("/addProductInOrder")
-	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO) {
+	public OrderDTO addProductInOrder(@RequestBody String product, OrderDTO orderDTO) {
 		return orderservice.addProductInOrder(product, orderDTO);
 	}
 
@@ -46,10 +46,10 @@ public class OrderController {
 		return orderservice.addOrderTotal(order);
 	}
 
-	@DeleteMapping("/deleteOrder/{id}")
-	public void delete(@PathVariable("id") int id) {
-		orderservice.delete(id);
-	}
+//	@DeleteMapping("/deleteOrder/{id}")
+//	public void delete(@PathVariable("id") int id) {
+//		orderservice.delete(id);
+//	}
 
 //	@PutMapping("/update/{id}")
 //    public ResponseEntity<Order> update(@PathVariable("id") int id, @RequestBody Order order) {

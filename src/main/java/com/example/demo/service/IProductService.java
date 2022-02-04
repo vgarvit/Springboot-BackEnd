@@ -14,5 +14,5 @@ public interface IProductService {
 
 	public Product getByName(String name);
 
-	public void delete(Integer id);
+	public void delete(String name);
 }

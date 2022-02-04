@@ -33,8 +33,6 @@ public class OrderServiceImple implements IOrderService {
 	@Override
 	public Order addOrderTotal(Order order) {
 		Product product = productRepository.findById(order.getProduct().getId()).orElseThrow(null);
-//	    Objects.requireNonNull(product, "You cannot order a non existing product");
-
 		order.setTotal(order.getProduct().getPrice() * order.getQuantity());
 		order.setProduct(product);
 		product.setQuantity(product.getQuantity() - order.getQuantity());
@@ -51,14 +49,16 @@ public class OrderServiceImple implements IOrderService {
 			Product pro = productRepository.findByName(obj.getString("name"));
 
 			if (pro != null) {
-				if (pro.getQuantity() < orderDTO.getQuantity()) {
-					throw new Exception("Quantity is more than available quantity");
-				}
 				orderDTO.setName(obj.getString("name"));
 				orderDTO.setQuantity(obj.getInt("quantity"));
-				orderDTO.setTotal(pro.getPrice() * orderDTO.getQuantity());
+				if (pro.getQuantity() < orderDTO.getQuantity()) {
+					throw new Exception("Quantity is more than available quantity");
+				} else {
+					orderDTO.setPrice(pro.getPrice());
+					orderDTO.setTotal(pro.getPrice() * orderDTO.getQuantity());
+				}
 			} else {
-				System.out.println("product does not exist");
+				System.out.println("product not exist");
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -74,8 +74,8 @@ public class OrderServiceImple implements IOrderService {
 	}
 
 	@Override
-	public void delete(Integer id) {
-		orderRepository.deleteById(id);
+	public void delete(OrderDTO orderDTO) {
+
 	}
 
 }
