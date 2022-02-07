@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 import java.util.List;
 import javax.validation.Valid;
+
+import org.apiguardian.api.API;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.entity.Product;
 import com.example.demo.service.IProductService;
 
+
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/product")
@@ -20,9 +24,10 @@ public class ProductController {
 
 	@Autowired
 	private IProductService productservice;
-
+	
 	@GetMapping("/getAllProducts")
 	public List<Product> getAllProducts() {
+		System.out.println("hello");
 		return productservice.getAllProducts();
 	}
 
