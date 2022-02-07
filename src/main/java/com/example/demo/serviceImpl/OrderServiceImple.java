@@ -1,5 +1,6 @@
 package com.example.demo.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -31,16 +32,15 @@ public class OrderServiceImple implements IOrderService {
 	}
 
 	@Override
-	public Order addOrderTotal(Order order) {
-		Product product = productRepository.findById(order.getProduct().getId()).orElseThrow(null);
-		order.setTotal(order.getProduct().getPrice() * order.getQuantity());
-		order.setProduct(product);
-		product.setQuantity(product.getQuantity() - order.getQuantity());
-		order = orderRepository.save(order);
-
-		productRepository.save(product);
-
-		return orderRepository.save(order);
+	public List<Order> addOrder(List<OrderDTO> orderDTO) {
+		List<Order> orderResponse = new ArrayList<Order>();
+		for (OrderDTO o : orderDTO) {
+			Product product = productRepository.findById(o.getId()).orElseThrow(null);
+			product.setQuantity(product.getQuantity() - o.getQuantity());
+			productRepository.save(product);
+			orderResponse.add(orderRepository.save(dtoToEntity(o)));
+		}
+		return orderResponse;
 	}
 
 	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO) {
@@ -51,6 +51,7 @@ public class OrderServiceImple implements IOrderService {
 			if (pro != null) {
 				orderDTO.setName(obj.getString("name"));
 				orderDTO.setQuantity(obj.getInt("quantity"));
+				orderDTO.setPaymentmode(obj.getString("paymentmode"));
 				if (pro.getQuantity() < orderDTO.getQuantity()) {
 					throw new Exception("Quantity is more than available quantity");
 				} else {
@@ -73,9 +74,14 @@ public class OrderServiceImple implements IOrderService {
 		return orderRepository.findById(id).orElseThrow(RuntimeException::new);
 	}
 
-	@Override
-	public void delete(OrderDTO orderDTO) {
-
+	private Order dtoToEntity(OrderDTO dto) {
+		Order obj = new Order();
+		obj.setName(dto.getName());
+		obj.setQuantity(dto.getQuantity());
+		obj.setPrice(dto.getPrice());
+		obj.setTotal(dto.getTotal());
+		obj.setPaymentmode(dto.getPaymentmode());
+		return obj;
 	}
 
 }

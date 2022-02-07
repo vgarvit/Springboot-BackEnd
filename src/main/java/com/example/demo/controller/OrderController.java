@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,22 +40,10 @@ public class OrderController {
 		return orderservice.addProductInOrder(product, orderDTO);
 	}
 
-	@PostMapping("/addOrderTotal")
-	public Order addOrderTotal(@Valid @RequestBody Order order) {
-		return orderservice.addOrderTotal(order);
+	@PostMapping("/addOrder")
+	public List<Order> addOrder(@Valid @RequestBody List<OrderDTO> orderDTO){
+		return orderservice.addOrder(orderDTO);
 	}
 
-//	@DeleteMapping("/deleteOrder/{id}")
-//	public void delete(@PathVariable("id") int id) {
-//		orderservice.delete(id);
-//	}
-
-//	@PutMapping("/update/{id}")
-//    public ResponseEntity<Order> update(@PathVariable("id") int id, @RequestBody Order order) {
-//      orderservice.update(id, order);
-//      
-//      return new ResponseEntity<>(orderservice.getById(id), HttpStatus.OK);
-//  }
-//	
 
 }
