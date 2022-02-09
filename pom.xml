@@ -54,6 +54,7 @@
 			<artifactId>json</artifactId>
 			<version>20180130</version>
 		</dependency>
+		<!-- Swagger Dependencies -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
