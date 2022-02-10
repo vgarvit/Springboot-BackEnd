@@ -3,6 +3,7 @@ package com.example.demo.serviceImpl;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -40,13 +41,13 @@ public class ProductServiceImple implements IProductService {
 				product.setType(obj.getString("type"));
 				product.setPrice(obj.getInt("price"));
 				product.setMfg(obj.getString("mfg"));
-				Date mfg = new SimpleDateFormat("dd-MM-yyyy").parse(product.getMfg());
+				Date mfg = new SimpleDateFormat("yyyy-MM-dd").parse(product.getMfg());
 				Calendar c = Calendar.getInstance();
 				c.setTime(mfg);
 				c.add(Calendar.YEAR, 2);
-				Date exp = c.getTime();
-				LocalDate date = exp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				product.setExp(date);
+				Date date = c.getTime();
+				LocalDate exp = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			    product.setExp(exp);
 				if (product.getQuantity() == 0) {
 					product.setStatus("Out Of Stock");
 				} else {
@@ -64,9 +65,9 @@ public class ProductServiceImple implements IProductService {
 				Calendar c = Calendar.getInstance();
 				c.setTime(mfg);
 				c.add(Calendar.YEAR, 2);
-				Date exp = c.getTime();
-				LocalDate date = exp.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-				pro.setExp(date);
+				Date date = c.getTime();
+				LocalDate exp = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			    pro.setExp(exp);
 				if (pro.getQuantity() == 0) {
 					pro.setStatus("Out Of Stock");
 				} else {

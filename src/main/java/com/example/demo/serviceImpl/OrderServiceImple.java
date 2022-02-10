@@ -49,9 +49,9 @@ public class OrderServiceImple implements IOrderService {
 			Product pro = productRepository.findByName(obj.getString("name"));
 
 			if (pro != null) {
+				orderDTO.setId(pro.getId());
 				orderDTO.setName(obj.getString("name"));
 				orderDTO.setQuantity(obj.getInt("quantity"));
-				orderDTO.setPaymentmode(obj.getString("paymentmode"));
 				if (pro.getQuantity() < orderDTO.getQuantity()) {
 					throw new Exception("Quantity is more than available quantity");
 				} else {

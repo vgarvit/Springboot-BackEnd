@@ -53,7 +53,7 @@ public class OrderController {
 		return orderService.addProductInOrder(product, orderDTO);
 	}
 
-	@ApiOperation(value = "Converts orderDTO list to order entity and add in order table")
+	@ApiOperation(value = "Add orders in order table")
 	@PostMapping("/addOrder")
 	public List<Order> addOrder(@Valid @RequestBody List<OrderDTO> orderDTO) {
 		return orderService.addOrder(orderDTO);
