@@ -37,6 +37,11 @@ public class OrderServiceImple implements IOrderService {
 		for (OrderDTO o : orderDTO) {
 			Product product = productRepository.findById(o.getId()).orElseThrow(null);
 			product.setQuantity(product.getQuantity() - o.getQuantity());
+			if (product.getQuantity() == 0) {
+				product.setStatus("Out Of Stock");
+			} else {
+				product.setStatus("Available");
+			}
 			productRepository.save(product);
 			orderResponse.add(orderRepository.save(dtoToEntity(o, product)));
 		}
@@ -75,6 +80,7 @@ public class OrderServiceImple implements IOrderService {
 
 	private Order dtoToEntity(OrderDTO dto, Product product) {
 		Order obj = new Order();
+		obj.setId(product.getId());
 		obj.setProduct(product);
 		obj.setName(dto.getName());
 		obj.setQuantity(dto.getQuantity());
@@ -82,6 +88,12 @@ public class OrderServiceImple implements IOrderService {
 		obj.setTotal(dto.getTotal());
 		obj.setPaymentmode("cash");
 		return obj;
+	}
+
+	@Override
+	public void delete(int id) {
+		orderRepository.deleteById(id);
+		
 	}
 
 }
