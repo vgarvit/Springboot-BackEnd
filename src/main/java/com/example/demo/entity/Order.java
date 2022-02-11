@@ -47,7 +47,7 @@ public class Order {
 	private int price;
 
 	@Column(name = "PAYMENT_MODE")
-	@NotEmpty(message = "mode of payment cannot be empty")
+//	@NotEmpty(message = "mode of payment cannot be empty")
 	@ApiModelProperty(notes = "The mode of payment used by customer")
 	private String paymentmode;
 

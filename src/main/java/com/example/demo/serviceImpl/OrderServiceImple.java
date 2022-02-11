@@ -38,7 +38,7 @@ public class OrderServiceImple implements IOrderService {
 			Product product = productRepository.findById(o.getId()).orElseThrow(null);
 			product.setQuantity(product.getQuantity() - o.getQuantity());
 			productRepository.save(product);
-			orderResponse.add(orderRepository.save(dtoToEntity(o)));
+			orderResponse.add(orderRepository.save(dtoToEntity(o, product)));
 		}
 		return orderResponse;
 	}
@@ -47,7 +47,6 @@ public class OrderServiceImple implements IOrderService {
 		try {
 			JSONObject obj = new JSONObject(product);
 			Product pro = productRepository.findByName(obj.getString("name"));
-
 			if (pro != null) {
 				orderDTO.setId(pro.getId());
 				orderDTO.setName(obj.getString("name"));
@@ -74,13 +73,14 @@ public class OrderServiceImple implements IOrderService {
 		return orderRepository.findById(id).orElseThrow(RuntimeException::new);
 	}
 
-	private Order dtoToEntity(OrderDTO dto) {
+	private Order dtoToEntity(OrderDTO dto, Product product) {
 		Order obj = new Order();
+		obj.setProduct(product);
 		obj.setName(dto.getName());
 		obj.setQuantity(dto.getQuantity());
 		obj.setPrice(dto.getPrice());
 		obj.setTotal(dto.getTotal());
-		obj.setPaymentmode(dto.getPaymentmode());
+		obj.setPaymentmode("cash");
 		return obj;
 	}
 

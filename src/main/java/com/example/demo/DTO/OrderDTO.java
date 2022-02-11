@@ -9,6 +9,4 @@ public class OrderDTO {
 	private int price;
 	private int quantity;
 	private double total;
-	private String paymentmode;
-
 }
