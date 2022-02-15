@@ -59,8 +59,8 @@ public class OrderController {
 
 	@ApiOperation(value = "Add orders in order table")
 	@PostMapping("/addOrder")
-	public void addOrder(@Valid @RequestBody List<OrderDTO> orderDTO, List<Order> orderResponse, Order order) {
-		orderService.addOrder(orderDTO, orderResponse, order);
+	public void addOrder(@Valid @RequestBody List<OrderDTO> orderDTO, Order order) {
+		orderService.addOrder(orderDTO, order);
 	}
 	
 	

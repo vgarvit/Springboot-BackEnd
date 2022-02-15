@@ -34,8 +34,9 @@ public class OrderServiceImple implements IOrderService {
 	}
 
 	@Override
-	public List<Order> addOrder(List<OrderDTO> orderDTO, List<Order> orderResponse, Order order) {
+	public List<Order> addOrder(List<OrderDTO> orderDTO, Order order) {
 		try {
+			List<Order> orderResponse = new ArrayList<>();
 			Random rand = new Random();
 			int id = rand.nextInt(1000);
 			for (OrderDTO o : orderDTO) {
@@ -50,11 +51,12 @@ public class OrderServiceImple implements IOrderService {
 				productRepository.save(product);
 				orderResponse.add(orderRepository.save(dtoToEntity(o, product, order)));
 			}
+			return orderResponse;
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		return null;
 
-		return orderResponse;
 	}
 
 	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO, String paymentmode) {

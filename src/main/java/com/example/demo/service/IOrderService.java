@@ -6,7 +6,7 @@ import com.example.demo.DTO.OrderDTO;
 import com.example.demo.entity.Order;
 
 public interface IOrderService {
-	public List<Order> addOrder(List<OrderDTO> orderDTO, List<Order> orderResponse, Order order);
+	public List<Order> addOrder(List<OrderDTO> orderDTO, Order order);
 
 	public List<Order> getAllOrders();
 
