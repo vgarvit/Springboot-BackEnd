@@ -21,11 +21,11 @@ import com.example.demo.service.IProductService;
 public class ProductServiceImple implements IProductService {
 
 	@Autowired
-	private ProductRepository productrepository;
+	private ProductRepository productRepository;
 
 	@Override
 	public List<Product> getAllProducts() {
-		return (List<Product>) productrepository.findAll();
+		return (List<Product>) productRepository.findAll();
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class ProductServiceImple implements IProductService {
 		try {
 			JSONObject obj = new JSONObject(products);
 
-			Product product = productrepository.findByName(obj.getString("name"));
+			Product product = productRepository.findByName(obj.getString("name"));
 
 			if (product != null) {
 				Integer quantity = product.getQuantity() + obj.getInt("quantity");
@@ -53,7 +53,7 @@ public class ProductServiceImple implements IProductService {
 				} else {
 					product.setStatus("Available");
 				}
-				productrepository.save(product);
+				productRepository.save(product);
 			} else {
 				Product pro = new Product();
 				pro.setName(obj.getString("name"));
@@ -61,7 +61,7 @@ public class ProductServiceImple implements IProductService {
 				pro.setType(obj.getString("type"));
 				pro.setPrice(obj.getInt("price"));
 				pro.setMfg(obj.getString("mfg"));
-				Date mfg = new SimpleDateFormat("dd-MM-yyyy").parse(pro.getMfg());
+				Date mfg = new SimpleDateFormat("yyyy-MM-dd").parse(pro.getMfg());
 				Calendar c = Calendar.getInstance();
 				c.setTime(mfg);
 				c.add(Calendar.YEAR, 2);
@@ -73,7 +73,7 @@ public class ProductServiceImple implements IProductService {
 				} else {
 					pro.setStatus("Available");
 				}
-				productrepository.save(pro);
+				productRepository.save(pro);
 			}
 		} catch (Exception e) {
 			System.out.println(e);
@@ -82,20 +82,20 @@ public class ProductServiceImple implements IProductService {
 
 	@Override
 	public Product getById(Integer id) {
-		return productrepository.findById(id).orElseThrow(RuntimeException::new);
+		return productRepository.findById(id).orElseThrow(RuntimeException::new);
 	}
 
 	@Override
 	public Product getByName(String name) {
-		return productrepository.findByName(name);
+		return productRepository.findByName(name);
 	}
-
+	
 	@Override
 	public void delete(String product) {
 		try {
 			JSONObject obj = new JSONObject(product);
-			Product pro = productrepository.findByName(obj.getString("name"));
-			productrepository.delete(pro);
+			Product pro = productRepository.findByName(obj.getString("name"));
+			productRepository.delete(pro);
 
 		} catch (Exception e) {
 			System.out.println(e);

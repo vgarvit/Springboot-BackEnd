@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -50,15 +52,21 @@ public class OrderController {
 	}
 
 	@ApiOperation(value = "Add Products in OrderDTO")
-	@PostMapping("/addProductInOrder")
-	public OrderDTO addProductInOrder(@RequestBody String product, OrderDTO orderDTO) {
-		return orderService.addProductInOrder(product, orderDTO);
+	@PostMapping("/addProductInOrder/{paymentmode}")
+	public OrderDTO addProductInOrder(@PathVariable String paymentmode, @RequestBody String product, OrderDTO orderDTO) {
+		return orderService.addProductInOrder(product, orderDTO, paymentmode);
 	}
 
 	@ApiOperation(value = "Add orders in order table")
 	@PostMapping("/addOrder")
-	public void addOrder(@Valid @RequestBody List<OrderDTO> orderDTO) {
-		orderService.addOrder(orderDTO);
+	public void addOrder(@Valid @RequestBody List<OrderDTO> orderDTO, List<Order> orderResponse, Order order) {
+		orderService.addOrder(orderDTO, orderResponse, order);
+	}
+	
+	
+	@GetMapping("/getSoldProducts")
+	public List<Map<String, Object>> getSoldProducts() throws Exception{
+		return orderService.getSoldProducts();
 	}
 
 	@DeleteMapping("/deleteOrder/{id}")
@@ -66,5 +74,5 @@ public class OrderController {
 		System.out.println("deleted");
 		orderService.delete(id);
 	}
-
+	
 }

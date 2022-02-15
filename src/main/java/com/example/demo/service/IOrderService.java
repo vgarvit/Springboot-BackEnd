@@ -1,19 +1,22 @@
 package com.example.demo.service;
-
 import java.util.List;
+import java.util.Map;
+
 import com.example.demo.DTO.OrderDTO;
 import com.example.demo.entity.Order;
-import com.example.demo.entity.Product;
 
 public interface IOrderService {
-	public List<Order> addOrder(List<OrderDTO> orderDTO);
+	public List<Order> addOrder(List<OrderDTO> orderDTO, List<Order> orderResponse, Order order);
 
 	public List<Order> getAllOrders();
 
 	public Order getById(Integer id);
 
-	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO);
+	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO, String paymentmode);
 	
 	public void delete(int id);
+	
+	public List<Map<String, Object>> getSoldProducts() throws Exception;
+	
 
 }

@@ -9,4 +9,13 @@ public class OrderDTO {
 	private int price;
 	private int quantity;
 	private double total;
+	private int ord_id;
+	private String paymentmode;
+	
+	public int getOrd_id(int id) {
+		return ord_id;
+	}
+	public void setOrd_id(int ord_id) {
+		this.ord_id = ord_id;
+	}
 }

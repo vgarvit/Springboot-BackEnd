@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -22,9 +23,12 @@ public class Order {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	@Column(name = "ORDER_ID")
+	@Column(name = "ORDER_PK")
 	@ApiModelProperty(notes = "The database generated order ID")
 	private int id;
+
+	@Column(name = "ORDER_ID")
+	private int ord_id;
 
 	@ManyToOne(targetEntity = Product.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "PRODUCT_FK", nullable = false)
@@ -37,17 +41,16 @@ public class Order {
 	private String name;
 
 	@Column(name = "PRODUCT_QUANTITY")
-	@NotNull(message = "product name cannot be empty")
+	@NotNull(message = "product name cannot be null")
 	@ApiModelProperty(notes = "Selected product quantity for order")
 	private int quantity;
 
 	@Column(name = "PRODUCT_PRICE")
-	@NotNull(message = "product name cannot be empty")
+	@NotNull(message = "product name cannot be null")
 	@ApiModelProperty(notes = "The price of selected product for order")
 	private int price;
 
 	@Column(name = "PAYMENT_MODE")
-	@NotEmpty(message = "mode of payment cannot be empty")
 	@ApiModelProperty(notes = "The mode of payment used by customer")
 	private String paymentmode;
 

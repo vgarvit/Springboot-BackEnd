@@ -15,4 +15,5 @@ public interface IProductService {
 	public Product getByName(String name);
 
 	public void delete(String name);
+	
 }

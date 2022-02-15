@@ -1,7 +1,6 @@
 package com.example.demo.entity;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,8 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -58,7 +55,7 @@ public class Product {
 	@ApiModelProperty(notes = "The manufacturing date of the product")
 	private LocalDate exp;
 
-	@Column(name = "STATUS")
+	@Column(name = "PRODUCT_STATUS")
 	@ApiModelProperty(notes = "Status of the product if it's available or out of stock")
 	private String status;
 

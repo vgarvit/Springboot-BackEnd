@@ -35,7 +35,6 @@ public class ProductController {
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping("/getAllProducts")
 	public List<Product> getAllProducts() {
-		System.out.println("hello");
 		return productService.getAllProducts();
 	}
 
@@ -44,6 +43,7 @@ public class ProductController {
 	public Product getById(@PathVariable("id") Integer id) throws RuntimeException {
 		return productService.getById(id);
 	}
+	
 
 	@ApiOperation(value = "Add a product")
 	@PostMapping("/addProduct")

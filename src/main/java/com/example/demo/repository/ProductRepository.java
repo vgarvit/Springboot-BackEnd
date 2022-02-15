@@ -9,5 +9,8 @@ import com.example.demo.entity.Product;
 public interface ProductRepository extends CrudRepository<Product, Integer> {
 	@Query(value = "SELECT p FROM Product p WHERE p.name = ?1")
 	public Product findByName(String name);
+	
+	@Query(value = "select count(name) from Product")
+	public long findProductCount();
 
 }
