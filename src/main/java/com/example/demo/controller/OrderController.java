@@ -75,4 +75,9 @@ public class OrderController {
 		orderService.delete(id);
 	}
 	
+	@GetMapping("/getCount")
+	public long getOrderCount() {
+		return orderService.getOrderCount();
+	}
+	
 }

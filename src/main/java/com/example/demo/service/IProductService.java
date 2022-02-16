@@ -16,4 +16,5 @@ public interface IProductService {
 
 	public void delete(String name);
 	
+	public long getProductCount();
 }

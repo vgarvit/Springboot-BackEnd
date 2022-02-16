@@ -44,6 +44,10 @@ public class ProductController {
 		return productService.getById(id);
 	}
 	
+	@GetMapping("/getCount")
+	public long getOrderCount() {
+		return productService.getProductCount();
+	}
 
 	@ApiOperation(value = "Add a product")
 	@PostMapping("/addProduct")

@@ -91,6 +91,11 @@ public class ProductServiceImple implements IProductService {
 	}
 	
 	@Override
+	public long getProductCount() {
+		return productRepository.findProductQuantity();
+	}
+	
+	@Override
 	public void delete(String product) {
 		try {
 			JSONObject obj = new JSONObject(product);

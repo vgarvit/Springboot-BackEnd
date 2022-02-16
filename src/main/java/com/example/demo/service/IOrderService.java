@@ -18,5 +18,6 @@ public interface IOrderService {
 	
 	public List<Map<String, Object>> getSoldProducts() throws Exception;
 	
+	public long getOrderCount();
 
 }

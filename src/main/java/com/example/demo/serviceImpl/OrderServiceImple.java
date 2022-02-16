@@ -8,7 +8,7 @@ import java.util.Random;
 
 import javax.transaction.Transactional;
 import org.json.JSONObject;
-import org.mockito.internal.matchers.Null;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.demo.DTO.OrderDTO;
@@ -122,6 +122,11 @@ public class OrderServiceImple implements IOrderService {
 			System.out.println(e);
 		}
 		return obj;
+	}
+	
+	@Override
+	public long getOrderCount() {
+		return orderRepository.findOrderQuantity();
 	}
 
 	@Override
