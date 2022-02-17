@@ -99,8 +99,8 @@ public class ProductServiceImple implements IProductService {
 		}
 		for (Object[] objs : obj) {
 			Map<String, Object> percent1 = new HashMap<>();
-			percent1.put("type", objs[0]);
-			percent1.put("percent", objs[1]);
+			percent1.put("name", objs[0]);
+			percent1.put("y", objs[1]);
 			percent.add(percent1);
 		}
 		return percent;
