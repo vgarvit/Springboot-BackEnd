@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
 import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -44,6 +46,7 @@ public class ProductController {
 		return productService.getById(id);
 	}
 	
+	@ApiOperation(value = "View count of available Products")
 	@GetMapping("/getCount")
 	public long getOrderCount() {
 		return productService.getProductCount();
@@ -53,6 +56,12 @@ public class ProductController {
 	@PostMapping("/addProduct")
 	public void addProduct(@Valid @RequestBody String product) throws RuntimeException {
 		productService.addProduct(product);
+	}
+	
+	@ApiOperation(value = "View type of product available in percent")
+	@GetMapping("/getTypePercent")
+	public List<Map<String, Object>> getTypePercent() throws Exception{
+		return productService.getTypePercent();
 	}
 
 	@ApiOperation(value = "Delete a product")

@@ -52,7 +52,7 @@ public class Product {
 	private String mfg;
 
 	@Column(name = "PRODUCT_EXP")
-	@ApiModelProperty(notes = "The manufacturing date of the product")
+	@ApiModelProperty(notes = "The expiry date of the product")
 	private LocalDate exp;
 
 	@Column(name = "PRODUCT_STATUS")

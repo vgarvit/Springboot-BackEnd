@@ -63,21 +63,25 @@ public class OrderController {
 		orderService.addOrder(orderDTO, order);
 	}
 	
-	
+	@ApiOperation(value = "View all Sold Products with their quantities")
 	@GetMapping("/getSoldProducts")
 	public List<Map<String, Object>> getSoldProducts() throws Exception{
 		return orderService.getSoldProducts();
 	}
-
+    
+	@ApiOperation(value = "View count of Sold Products")
+	@GetMapping("/getCount")
+	public long getOrderCount() {
+		return orderService.getOrderCount();
+	}
+	
+	@ApiOperation(value = "Delete an Order")
 	@DeleteMapping("/deleteOrder/{id}")
 	public void deleteOrder(@PathVariable("id") int id) {
 		System.out.println("deleted");
 		orderService.delete(id);
 	}
 	
-	@GetMapping("/getCount")
-	public long getOrderCount() {
-		return orderService.getOrderCount();
-	}
+	
 	
 }

@@ -4,9 +4,13 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import javax.transaction.Transactional;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,10 +88,22 @@ public class ProductServiceImple implements IProductService {
 	public Product getById(Integer id) {
 		return productRepository.findById(id).orElseThrow(RuntimeException::new);
 	}
-
+    
 	@Override
-	public Product getByName(String name) {
-		return productRepository.findByName(name);
+	public List<Map<String, Object>> getTypePercent() throws Exception {
+		List<Map<String, Object>> percent = new ArrayList<>();
+		List<Object[]> obj = null;
+		obj = productRepository.findTypePercent();
+		if (obj.contains(null)) {
+			throw new Exception("Product type is not available");
+		}
+		for (Object[] objs : obj) {
+			Map<String, Object> percent1 = new HashMap<>();
+			percent1.put("type", objs[0]);
+			percent1.put("percent", objs[1]);
+			percent.add(percent1);
+		}
+		return percent;
 	}
 	
 	@Override

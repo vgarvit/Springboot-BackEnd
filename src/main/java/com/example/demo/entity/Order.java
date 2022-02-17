@@ -24,9 +24,10 @@ public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "ORDER_PK")
-	@ApiModelProperty(notes = "The database generated order ID")
+	@ApiModelProperty(notes = "Auto generated ID as Primary key")
 	private int id;
-
+    
+	@ApiModelProperty(notes = "The Order Id used for differentiating orders ")
 	@Column(name = "ORDER_ID")
 	private int ord_id;
 
