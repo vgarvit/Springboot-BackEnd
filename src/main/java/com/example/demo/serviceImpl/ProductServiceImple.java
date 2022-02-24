@@ -3,7 +3,6 @@ package com.example.demo.serviceImpl;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -122,5 +121,14 @@ public class ProductServiceImple implements IProductService {
 			System.out.println(e);
 		}
 	}
-
+    
+	@Override
+	public void save(Product product){
+		productRepository.save(product);
+	}
+	
+	@Override
+	public Product getByName(String name) {
+		return productRepository.findByName(name);
+	}
 }

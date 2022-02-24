@@ -12,10 +12,15 @@ public interface IProductService {
 	public List<Product> getAllProducts();
 
 	public Product getById(Integer id);
+	
+	public Product getByName(String name);
 
 	public void delete(String name);
 	
 	public long getProductCount();
 	
 	public List<Map<String, Object>> getTypePercent() throws Exception;
+	
+	public void save(Product product);
+	
 }

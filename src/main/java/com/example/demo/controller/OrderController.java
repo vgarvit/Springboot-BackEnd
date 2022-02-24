@@ -53,14 +53,14 @@ public class OrderController {
 
 	@ApiOperation(value = "Add Products in OrderDTO")
 	@PostMapping("/addProductInOrder/{paymentmode}")
-	public OrderDTO addProductInOrder(@PathVariable String paymentmode, @RequestBody String product, OrderDTO orderDTO) {
+	public OrderDTO addProductInOrder(@PathVariable("paymentmode") String paymentmode, @RequestBody String product, OrderDTO orderDTO) {
 		return orderService.addProductInOrder(product, orderDTO, paymentmode);
 	}
 
 	@ApiOperation(value = "Add orders in order table")
 	@PostMapping("/addOrder")
-	public void addOrder(@Valid @RequestBody List<OrderDTO> orderDTO, Order order) {
-		orderService.addOrder(orderDTO, order);
+	public List<Order> addOrder(@Valid @RequestBody List<OrderDTO> orderDTO, Order order) {
+		return orderService.addOrder(orderDTO, order);
 	}
 	
 	@ApiOperation(value = "View all Sold Products with their quantities")

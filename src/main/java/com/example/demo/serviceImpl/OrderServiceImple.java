@@ -15,8 +15,8 @@ import com.example.demo.DTO.OrderDTO;
 import com.example.demo.entity.Order;
 import com.example.demo.entity.Product;
 import com.example.demo.repository.OrderRepository;
-import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.IOrderService;
+import com.example.demo.service.IProductService;
 
 @Service
 @Transactional
@@ -26,7 +26,7 @@ public class OrderServiceImple implements IOrderService {
 	private OrderRepository orderRepository;
 
 	@Autowired
-	private ProductRepository productRepository;
+	private IProductService productService;
 
 	@Override
 	public List<Order> getAllOrders() {
@@ -35,34 +35,37 @@ public class OrderServiceImple implements IOrderService {
 
 	@Override
 	public List<Order> addOrder(List<OrderDTO> orderDTO, Order order) {
+		List<Order> orderResponse = new ArrayList<>();
 		try {
-			List<Order> orderResponse = new ArrayList<>();
 			Random rand = new Random();
 			int id = rand.nextInt(1000);
 			for (OrderDTO o : orderDTO) {
-				Product product = productRepository.findById(o.getId()).orElseThrow(null);
+				Product product = productService.getById(o.getId());
+				if(product == null) {
+					throw new Exception("Product Not Found");
+				}
 				product.setQuantity(product.getQuantity() - o.getQuantity());
 				if (product.getQuantity() == 0) {
 					product.setStatus("Out Of Stock");
 				} else {
 					product.setStatus("Available");
 				}
-				o.setOrd_id(id);
-				productRepository.save(product);
+				o.setOrdId(id);
+				productService.save(product);
 				orderResponse.add(orderRepository.save(dtoToEntity(o, product, order)));
 			}
-			return orderResponse;
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return null;
+		return orderResponse;
 
 	}
 
+	@Override
 	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO, String paymentmode) {
 		try {
 			JSONObject obj = new JSONObject(product);
-			Product pro = productRepository.findByName(obj.getString("name"));
+			Product pro = productService.getByName(obj.getString("name"));
 			if (pro != null) {
 				orderDTO.setId(pro.getId());
 				orderDTO.setName(obj.getString("name"));
@@ -111,7 +114,7 @@ public class OrderServiceImple implements IOrderService {
 			Random rand = new Random();
 			int id = rand.nextInt(1000);
 			obj.setId(product.getId());
-			obj.setOrd_id(dto.getOrd_id(id));
+			obj.setOrdId(dto.getOrdId(id));
 			obj.setProduct(product);
 			obj.setName(dto.getName());
 			obj.setQuantity(dto.getQuantity());
@@ -123,7 +126,7 @@ public class OrderServiceImple implements IOrderService {
 		}
 		return obj;
 	}
-	
+
 	@Override
 	public long getOrderCount() {
 		return orderRepository.findOrderQuantity();

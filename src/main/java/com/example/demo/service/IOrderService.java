@@ -12,12 +12,14 @@ public interface IOrderService {
 
 	public Order getById(Integer id);
 
-	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO, String paymentmode);
+	public OrderDTO addProductInOrder(String product, OrderDTO orderDTO, String paymentMode);
 	
 	public void delete(int id);
 	
 	public List<Map<String, Object>> getSoldProducts() throws Exception;
 	
 	public long getOrderCount();
+	
+	
 
 }

@@ -29,7 +29,7 @@ public class Order {
     
 	@ApiModelProperty(notes = "The Order Id used for differentiating orders ")
 	@Column(name = "ORDER_ID")
-	private int ord_id;
+	private int ordId;
 
 	@ManyToOne(targetEntity = Product.class, fetch = FetchType.EAGER)
 	@JoinColumn(name = "PRODUCT_FK", nullable = false)

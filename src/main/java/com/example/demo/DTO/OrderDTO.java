@@ -9,13 +9,13 @@ public class OrderDTO {
 	private int price;
 	private int quantity;
 	private double total;
-	private int ord_id;
+	private int ordId;
 	private String paymentmode;
 	
-	public int getOrd_id(int id) {
-		return ord_id;
+	public int getOrdId(int id) {
+		return ordId;
 	}
-	public void setOrd_id(int ord_id) {
-		this.ord_id = ord_id;
+	public void setOrdId(int ordId) {
+		this.ordId = ordId;
 	}
 }
